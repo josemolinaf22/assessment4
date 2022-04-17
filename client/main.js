@@ -1,6 +1,4 @@
-
-const getRecords = () => axios.get("http://localhost:4000/api/records").then(recordCallback).catch(errCallback)
-
+// VV  this is for the buttons 
 document.getElementById("complimentButton").onclick = function () {
     axios.get("http://localhost:4000/api/compliment/")
     .then(function (response) {
@@ -16,21 +14,23 @@ document.getElementById("getFortuneBtn").onclick = function () {
         alert(data);
     })
 }
-
-const baseURL = `http://localhost:4000/api/records`
-const recordsContainer = document.querySelector('#record-container')
+// ^^ Both Buttons
+const recordContainer = document.querySelector('#recordsContainer')
 const form = document.querySelector('form')
+const editZone = document.getElementById("edit-zone")
 
 const recordCallback = ({ data: records }) => displayRecords(records)
-const errCallback = err => console.log(err.response.data)
 
-const getAllRecords = () => axios.get(baseURL).then(recordCallback).catch(errCallback)
-const createRecord = body => axios.post(baseURL, body).then(recordCallback).catch(errCallback)
-const deleteRecord = id => axios.delete(`${baseURL}/${id}`).then(recordCallback).catch(errCallback)
-const updateRecord = (id, type) => axios.put(`${baseURL}/${id}`, {type}).then(recordCallback).catch(errCallback)
 
-function submitHandler(send) {
-    send.preventDefault()
+const getAllRecords = () => axios.get("http://localhost:4000/api/records").then(recordCallback).catch(err => console.log(err))
+const createNewRecord = body => axios.post("http://localhost:4000/api/record", body).then(recordCallback).catch(err => console.log(err))
+const deleteRecord = id => axios.delete(`http://localhost:4000/api/records/${id}`).then(recordCallback).catch(err => console.log(err))
+// const updateRecord = (id, type) => axios.put(`http://localhost:4000/api/records/${id}`, {type}).then(recordCallback).catch(err => console.log(err))
+
+
+
+function submitHandler(e) {
+    e.preventDefault()
 
     let date = document.querySelector('#date')
     let area = document.querySelector('#area')
@@ -38,39 +38,69 @@ function submitHandler(send) {
 
     let bodyObj = {
         date: date.value,
-        area: area.value, 
-        duration: duration.value
+        area: area.value,
+        duration: duration.value 
     }
 
-    createRecord(bodyObj)
+    createNewRecord(bodyObj)
 
     date.value = ''
     area.value = ''
     duration.value = ''
 }
 
-// function createRecord(record) {
-//     const recordCard = document.createElement('div')
-//     recordCard.classList.add('record-card')
+function createRecordCard(record) {
+    const recordCard = document.createElement('div')
+    recordCard.classList.add('record-card')
+    
+    recordCard.innerHTML = `
+    
+    <p>${record.date}</p>
+    <p>${record.area}</p>
+    <p>${record.duration}</p>
+    <button onclick="deleteRecord(${record.id})">delete</button>
+    `
+    recordContainer.appendChild(recordCard)
 
-//     recordCard.innerHTML = `
-//     <p>${record.date}</p>
-//     <p>${record.area}</p>
-//     <p>${record.duration}</p>
-//     <button onclick="delete(${record.id})">delete</button>
+}
+
+// const editRecord = record => {
+//     const editForm = document.createElement("form")
+//     editForm.className = 'edit-form'
+//     editForm.innerHTML = `
+    
+//          <input  id="date-input" placeholder="date" value="${record.date}"/>
+//          <input  id="area-input" placeholder="area"  value="${record.area}"/>
+//          <input  id="duration-input" placeholder="duration" value="${record.duration}"/>
+//          <button>save changes</button>
 //     `
+//      editZone.appendChild(editForm)
+
+//      editForm.addEventListener("submit", e =>{
+//          e.preventDefault()
+
+//          let updates = {
+//              date: document.getElementById("date-input").value,
+//              area: document.getElementById("area-input").value,
+//              duration: document.getElementById("duration-input").value
+//          }
+
+//           axios
+//           .put(`http://localhost:4000/api/records/${record.id}`, updates)
+//           .then(recordCallback)
+//           .catch(err => console.log(err))
 
 
-//     moviesContainer.appendChild(movieCard)
-// }
+//      })
+//  }
+
 
 function displayRecords(arr) {
-    recordsContainer.innerHTML = ``
+    recordContainer.innerHTML = ``
     for(let i = 0; i < arr.length; i++){
         createRecordCard(arr[i])
     }
 }
 
 form.addEventListener('submit', submitHandler)
-
 getAllRecords()

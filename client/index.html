@@ -2,21 +2,29 @@
 <html>
   <head>
     <title>Back End Assessment</title>
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body class="container">
     <button id="complimentButton">Get a compliment</button>
     <button id="getFortuneBtn">Look into your future?</button>
 
+    <h1>GYM Tracker:</h1>
     <section id="entryForm"> 
-    <form action="">
-      <input type="text" id="date" placeholder="When did you go to the gym?">
-      <input type="text" id="area" placeholder="What body part did you target?">
-      <input type="text" id="duration" placeholder="How long were you there for?">
+    <form id="gymForm" action="">
+      <label for="">When did you go to the gym?</label>
+      <input type="text" id="date" placeholder="">
+      <br>
+      <label for="">What body part did you target?</label>
+      <input type="text" id="area" placeholder="">
+      <br>
+      <label for="">How long were you there for?</label>
+      <input type="text" id="duration" placeholder="">
+      <br>
       <button>Add To List</button>
     </form>
   </section>
 
-  <section id="record-container"></section>
+  <section id="recordsContainer"></section>
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="main.js"></script>

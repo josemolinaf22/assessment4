@@ -6,8 +6,7 @@ const app = express();
 app.use(express.json()); // When we want to be able to accept JSON.
 app.use(cors());
 
-const { getRecords, deleteRecord, createRecord, updateRecord} = require('./controller')
-
+// VV button 
 app.get("/api/compliment", (req, res) => {
   const compliments = ["Gee, you're a smart cookie!",
 					 "Cool shirt!",
@@ -39,12 +38,13 @@ app.get("/api/fortune", (req, res) => {
   res.status(200).send(randomFortune);
 
 })
+//^^ button
+const {getAllRecords, deleteRecord, createNewRecord, /*updateRecord8*/} = require('./controller')
+
+app.get("/api/records", getAllRecords);
+app.delete("/api/records/:id", deleteRecord)
+app.post("/api/record", createNewRecord)
+// app.put("/api/records/:id", updateRecord)
 
 
-app.get('/api/records', getRecords);
-app.delete('/api/records/:id', deleteRecord);
-app.post('/api/records', createRecord);
-app.put('/api/records/:id', updateRecord);
-
-
-app.listen(4000, () => console.log("Server running on 4000"));
+app.listen(4000, () => {console.log('Listening on port 4000')})

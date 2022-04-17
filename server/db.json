@@ -1,20 +1,20 @@
 [
     {
         "id": 1,
-        "Date": "04/11/2022",
-        "Muscle Area": "Legs",
-        "Duration": "60 min"
+        "date": "04/11/2022",
+        "area": "Legs",
+        "duration": "60 min"
     },
     {
         "id": 2,
-        "Date": "04/12/2022",
-        "Muscle Area": "Push",
-        "Duration": "60 min"
+        "date": "04/12/2022",
+        "area": "Push",
+        "duration": "60 min"
     },
     {
         "id": 3,
-        "Date": "04/13/2022",
-        "Muscle Area": "Pull",
-        "Duration": "60 min"
+        "date": "04/13/2022",
+        "area": "Pull",
+        "duration": "60 min"
     }
 ]
